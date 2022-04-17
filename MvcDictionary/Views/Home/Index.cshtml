@@ -1,0 +1,66 @@
+﻿@model List<Word>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    th,td{
+        border : 1px solid black;
+        padding : 8px;
+    }
+
+    table{
+        font-family : arial, sans-serif;
+        width: 33%;
+        border-collapse : collapse ;
+        margin-left : auto;
+        margin-right : auto;
+    }
+
+    tr:nth-child(2n) {
+        background-color: #dddddd;
+    }
+</style>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div>
+    <div>
+        <a asp-action="CreateWord" style="margin-left: 34%;">Yeni Kelime</a>
+    </div>
+
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Kelime</th>
+            <th>Anlam</th>
+            <th></th>
+        </tr>
+        @{
+            foreach(Word kelime in Model)
+            {
+               <tr>
+                    <td>@kelime.Id</td>
+                    <td>@kelime.Kelime</td>
+                    <td>@kelime.Anlam</td>
+                    <td>
+                        <a onclick="return eminMisiniz(@kelime.Id)" asp-route-id="kisi.Id" asp-action="Delete">Sil</a>
+                        <a asp-route-id="@kelime.Id" asp-action="CreateWord">Düzenle</a>
+                    </td>
+               </tr>
+            }
+        }
+    </table>
+</div>
+
+<script>
+    function eminMisiniz(id){
+        var dialogResult = confirm(id + " id li kayit silinecek emin misiniz?");
+        console.log(dialogResult);
+        return dialogResult;
+    }
+</script>
